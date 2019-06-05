@@ -18,7 +18,7 @@ public class MainPresenter implements MainPresenterInterface {
     MainViewInterface mvi;
     private String TAG = "MainPresenter";
 
-    public MainPresenter(MainActivity mvi) {
+    public MainPresenter(MainViewInterface mvi) {
         this.mvi = mvi;
     }
 
@@ -29,7 +29,7 @@ public class MainPresenter implements MainPresenterInterface {
 
     public Observable<MovieResponse> getObservable(){
         return NetworkClient.getRetrofit().create(NetworkInterface.class)
-                .getMovies("004cbaf19212094e32aa9ef6f6577f22")
+                .getMovies("43f4029a324f76d3fc5271d79a5a97aa")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -39,22 +39,21 @@ public class MainPresenter implements MainPresenterInterface {
 
             @Override
             public void onNext(@NonNull MovieResponse movieResponse) {
+                Log.d(TAG,"OnNext"+movieResponse.getTotalResults());
                 mvi.displayMovies(movieResponse);
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(@NonNull Throwable e) {
                 Log.d(TAG,"Error"+e);
                 e.printStackTrace();
-
+                mvi.displayError("Error fetching Movie Data");
             }
 
             @Override
             public void onComplete() {
                 Log.d(TAG,"Completed");
             }
-
-
         };
     }
 }
