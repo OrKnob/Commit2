@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 public interface NetworkInterface {
 
     @GET("discover/movie")
-    Observable<MovieResponse> getMovies(@Query("43f4029a324f76d3fc5271d79a5a97aa") String api_key);
+    Observable<MovieResponse> getMovies(@Query("api_key") String api_key);
 }
