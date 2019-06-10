@@ -9,9 +9,7 @@ public class NetworkClient {
 
     public static Retrofit retrofit;
 
-    public void NetworkClient(){
 
-    }
 
     public static Retrofit getRetrofit(){
 
